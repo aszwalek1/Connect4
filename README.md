@@ -20,7 +20,12 @@ java -cp app/build/libs/app.jar projects.Connect4
 ```
 
 ### Running the tests
-run this command to run the tests
+run this command to run the tests on Windows
 ```
 .\gradlew.bat test
+```
+which should be the following on Mac and Linux:
+```
+./gradlew test
+
 ```

@@ -10,6 +10,8 @@ public class Connect4 {
     private char[][] grid;
     private int rows;     
     private int columns;
+    private int winLength;
+    private boolean win;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -46,19 +48,31 @@ public class Connect4 {
         }
 
         // Initialises the grid based on the input values
-        game.initialiseGrid(gridX, gridY);
+        game.initialiseGrid(gridX, gridY, winLength);
         game.displayGame();
 
-        char startingPlayer = 'R';
+        char player = 'R'; // 'R' for Red and 'Y' for Yellow
         int turn = 1;
-        boolean win = false;
+        int possibleTurns = gridX * gridY; // maximum number of turns per game
 
+        while (!game.win && turn <= possibleTurns) {
+            game.playTurn(player);
+            game.displayGame();
+            
+            // Switch the current player
+            player = (player == 'R') ? 'Y' : 'R';
+            turn++;
+        }
+        
         scanner.close();
     }
 
-    public void initialiseGrid(int rows, int columns) {
+    public void initialiseGrid(int rows, int columns, int winLength) {
         this.rows = rows;
         this.columns = columns;
+        this.winLength = winLength;
+        this.win = false;
+        
         grid = new char[rows][columns];
 
         for (int row = 0; row < rows; row++) {
@@ -94,7 +108,28 @@ public class Connect4 {
         }
     }
 
-    public void playTurn() {
+    public void playTurn(char player) {
+        Scanner scanner = new Scanner(System.in);
+        int column;
+        
+        while (true) {
+            System.out.print("Player \"" + player + "\" choose column: ");
+            // Change the index to start from 0
+            column = scanner.nextInt() - 1; 
 
+            if (column >= 0 && column < columns) {
+                // Find available cell in the column from the bottom
+                for (int row = rows - 1; row >= 0; row--) {
+                    if (grid[row][column] == ' ') {
+                        grid[row][column] = player;
+                        // Finish move
+                        return; 
+                    }
+                }
+                System.out.println("This column is full");
+            } else {
+                System.out.println("Invalid input");
+            }
+        }
     }
 }

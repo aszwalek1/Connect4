@@ -14,14 +14,36 @@ public class Connect4 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Connect4 game = new Connect4();
+        int gridX, gridY, winLength;
         
         // Asks user for the board size and winning condition
-        System.out.println("Enter the row length: ");
-        int gridX = scanner.nextInt();
-        System.out.println("Enter the column length: ");
-        int gridY = scanner.nextInt();
-        System.out.println("Enter the number of tokens required to win: ");
-        int winLength = scanner.nextInt();
+        // Checks the inputs are valid
+        while(true) {
+            System.out.println("Enter the row length: ");
+            gridX = scanner.nextInt();
+            if(gridX > 0) {
+                break;
+            }
+            System.out.println("Invalid input");
+        }
+
+        while(true) {
+            System.out.println("Enter the column length: ");
+            gridY = scanner.nextInt();
+            if(gridY > 0) {
+                break;
+            }
+            System.out.println("Invalid input");
+        }
+
+        while(true) {
+            System.out.println("Enter the number of tokens required to win: ");
+            winLength = scanner.nextInt();
+            if(winLength > 0) {
+                break;
+            }
+            System.out.println("Invalid input");
+        }
 
         // Initialises the grid based on the input values
         game.initialiseGrid(gridX, gridY);

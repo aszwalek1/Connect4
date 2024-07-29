@@ -22,15 +22,6 @@ public class Connect4 {
         // Checks the inputs are valid
         while(true) {
             System.out.println("Enter the row length: ");
-            gridX = scanner.nextInt();
-            if(gridX > 0) {
-                break;
-            }
-            System.out.println("Invalid input");
-        }
-
-        while(true) {
-            System.out.println("Enter the column length: ");
             gridY = scanner.nextInt();
             if(gridY > 0) {
                 break;
@@ -39,9 +30,18 @@ public class Connect4 {
         }
 
         while(true) {
+            System.out.println("Enter the column length: ");
+            gridX = scanner.nextInt();
+            if(gridX > 0) {
+                break;
+            }
+            System.out.println("Invalid input");
+        }
+
+        while(true) {
             System.out.println("Enter the number of tokens required to win: ");
             winLength = scanner.nextInt();
-            if(winLength > 0) {
+            if(winLength > 0 && winLength <= Math.max(gridX, gridY)) {
                 break;
             }
             System.out.println("Invalid input");
@@ -61,6 +61,7 @@ public class Connect4 {
             
             // Switch the current player
             player = (player == 'R') ? 'Y' : 'R';
+            
             turn++;
         }
         

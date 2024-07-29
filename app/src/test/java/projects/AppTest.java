@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
     @Test void appHasAGreeting() {
-        App classUnderTest = new App();
+        Connect4 classUnderTest = new Connect4();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
 }

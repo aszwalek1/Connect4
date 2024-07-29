@@ -58,6 +58,11 @@ public class Connect4 {
         while (!game.win && turn <= possibleTurns) {
             game.playTurn(player);
             game.displayGame();
+
+            if (game.checkWin(player)) {
+                System.out.println("Player " + player + " has won");
+                game.win = true;
+            }
             
             // Switch the current player
             player = (player == 'R') ? 'Y' : 'R';
@@ -133,5 +138,57 @@ public class Connect4 {
                 System.out.println("Invalid input");
             }
         }
+    }
+
+    /**
+     * @param rowDirection 1 is up, 0 is none, -1 is up
+     * @param colDirection 1 is right, 0 is none, -1 is left
+     */
+
+    private boolean checkWin(char player) {
+        // Check all possible lines for each cell
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < columns; col++) {
+                if (grid[row][col] == player) {
+                    // Check horizontally
+                    if (col + winLength <= columns && checkLine(row, col, 0, 1, player)) {
+                        return true;
+                    }
+                    // Check vertically
+                    if (row + winLength <= rows && checkLine(row, col, 1, 0, player)) {
+                        return true;
+                    }
+                    // Check diagonally downward
+                    if (row + winLength <= rows && col + winLength <= columns && checkLine(row, col, 1, 1, player)) {
+                        return true;
+                    }
+                    // Check diagonally upward
+                    if (row - winLength + 1 >= 0 && col + winLength <= columns && checkLine(row, col, -1, 1, player)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean checkLine(int startingRow, int startingCol, int rowDirection, int colDirection, char player) {
+        int count = 0;
+        int row = startingRow;
+        int col = startingCol;
+
+        while (row >= 0 && row < rows && col >= 0 && col < columns) {
+            if (grid[row][col] == player) {
+                count++;
+                if (count == winLength) {
+                    return true;
+                }
+            } else {
+                break;
+            }
+            row += rowDirection;
+            col += colDirection;
+        }
+        return false;
     }
 }

@@ -113,7 +113,8 @@ public class Connect4 {
         int column;
         
         while (true) {
-            System.out.print("Player \"" + player + "\" choose column: ");
+            System.out.println("Next Player: \"" + player + "\"");
+            System.out.print("Please choose the column to play: ");
             // Change the index to start from 0
             column = scanner.nextInt() - 1; 
 

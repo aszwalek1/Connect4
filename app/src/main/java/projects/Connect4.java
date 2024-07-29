@@ -145,7 +145,7 @@ public class Connect4 {
      * @param colDirection 1 is right, 0 is none, -1 is left
      */
 
-    private boolean checkWin(char player) {
+    public boolean checkWin(char player) {
         // Check all possible lines for each cell
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < columns; col++) {
@@ -172,6 +172,7 @@ public class Connect4 {
         return false;
     }
 
+    // Check the cells from the given cell in a given direction
     private boolean checkLine(int startingRow, int startingCol, int rowDirection, int colDirection, char player) {
         int count = 0;
         int row = startingRow;
